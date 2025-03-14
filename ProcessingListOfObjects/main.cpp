@@ -24,7 +24,11 @@ int main()
 
 	std::cout << name_file;
 
-	mg.PrintAllObjects();
+	std::cout << "Input file to output: "sv;
+	std::cin.get();
+	std::getline(std::cin, name_file);
+
+	PrintToFile(name_file, mg);
 
 	return 0;
 }
