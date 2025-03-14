@@ -13,7 +13,7 @@ project ("ProcessingListOfObjects" CXX)
 set(CMAKE_CXX_STANDARD 17)
 
 # Добавьте источник в исполняемый файл этого проекта.
-add_executable (ProcessingListOfObjects "main.cpp" "input_reader.h" "geo.h" "input_reader.cpp" "geo.cpp" "object.h" "group.h" "object.cpp" "group.cpp")
+add_executable (ProcessingListOfObjects "main.cpp" "input_reader.h" "geo.h" "input_reader.cpp" "geo.cpp" "object.h" "group.h" "object.cpp" "group.cpp" "comparator.h" "comparator.cpp")
 
 
 # TODO: Добавьте тесты и целевые объекты, если это необходимо.
