@@ -8,18 +8,18 @@
 class Object {
 public:
 
-	Object(std::string&& name, Coordinates coord, std::string&& type, std::time_t time) :
+	Object(std::string name, Coordinates coord, std::string type, double time) :
 		name_(std::move(name)), coordinates_(coord), type_(std::move(type)), time_(time) {
 	}
 
-	std::string_view GetName() const;
+	std::string GetName() const;
 	Coordinates GetCoordinates() const;
-	std::string_view GetType() const;
-	std::time_t GetTime() const;
+	std::string GetType() const;
+	double GetTime() const;
 
 private:
 	std::string name_;
 	Coordinates coordinates_;
 	std::string type_;
-	std::time_t time_; //исходя из условия задания используется дата в формате Unix Time 
+	double time_; //РёСЃС…РѕРґСЏ РёР· СѓСЃР»РѕРІРёСЏ Р·Р°РґР°РЅРёСЏ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РґР°С‚Р° РІ С„РѕСЂРјР°С‚Рµ Unix Time 
 };
