@@ -1,9 +1,7 @@
 #include "group.h"
 
-void ManagerGroup::PrintAllObjects() {
-	for (const auto& obj : all_objects_) {
-		std::cout << obj.GetName() <<std::endl;
-	}
+const std::deque<Object>& ManagerGroup::GetAllObjects() {
+	return all_objects_;
 }
 
 void ManagerGroup::AddToList(std::string name, Coordinates coord, std::string type, double time) {
