@@ -1,4 +1,4 @@
-﻿# CMakeList.txt: проект CMake для ProcessingListOfObjects; включите исходный код и определения,
+# CMakeList.txt: проект CMake для ProcessingListOfObjects; включите исходный код и определения,
 # укажите здесь логику для конкретного проекта.
 #
 cmake_minimum_required (VERSION 3.11)
@@ -13,7 +13,7 @@ project ("ProcessingListOfObjects" CXX)
 set(CMAKE_CXX_STANDARD 17)
 
 # Добавьте источник в исполняемый файл этого проекта.
-add_executable (ProcessingListOfObjects "main.cpp" "ProcessingListOfObjects.h" "input_reader.h" "geo.h")
+add_executable (ProcessingListOfObjects "main.cpp" "input_reader.h" "geo.h" "input_reader.cpp" "geo.cpp" "object.h" "group.h" "object.cpp" "group.cpp")
 
 
 # TODO: Добавьте тесты и целевые объекты, если это необходимо.
