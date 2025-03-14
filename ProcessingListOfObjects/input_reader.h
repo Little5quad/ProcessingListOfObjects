@@ -22,6 +22,6 @@ std::ostream& operator<<(std::ostream& out, const Object& obj);
 
 std::vector<std::string> SplitToWords(const std::string& text);
 
-void Load(std::istream& input, ManagerGroup& mg);
+void Load(const std::string& input, ManagerGroup& mg);
 
 void PrintToFile(const std::string& input, ManagerGroup& mg);

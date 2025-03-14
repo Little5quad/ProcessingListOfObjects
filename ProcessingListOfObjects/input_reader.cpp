@@ -1,13 +1,14 @@
 #include "input_reader.h"
 
 using std::filesystem::path;
+using namespace std::literals;
 
 path operator""_p(const char* data, std::size_t sz) {
     return path(data, data + sz);
 }
 
 std::ostream& operator<<(std::ostream& out, const Coordinates& coord) {
-    return out << coord.x_ << " " << coord.y_ << "\n";
+    return out << coord.x_ << " " << coord.y_;
 }
 
 std::ostream& operator<<(std::ostream& out, const Object& obj) {
@@ -47,27 +48,24 @@ void Load(const std::string& input, ManagerGroup& mg) {
                 throw std::logic_error("Error in file");
             }
             try {
-                mg.AddToList(tmp[0], { std::stof(tmp[1]), std::stof(tmp[2]) }, tmp[3], std::stod(tmp[4]));
+                mg.AddToList(tmp[0], { std::stod(tmp[1]), std::stod(tmp[2]) }, tmp[3], std::stod(tmp[4]));
             }
             catch (...) {
                 throw ParsingError("Failed to convert ");
             }
         }
-        /*
-        if (!(input_file >> c)) {
-            throw std::logic_error("Unexpected EOF");
-        }*/
-
+        
         std::cout << "yes\n";
     }
 }
 
 void PrintToFile(const std::string& input, ManagerGroup& mg) {
-    std::ofstream output_file(input, std::ios::binary);
+    std::ofstream output_file(input, std::ios::binary | std::ios::app);
     if (output_file) {
         const auto& all_objects = mg.GetAllObjects();
         for (const auto& obj : all_objects) {
             output_file << obj;
         }
+        output_file << "ÀÁÂÃÄåæçè"s;
     }
 }

@@ -3,10 +3,10 @@
 #include <cmath>
 
 struct Coordinates {
-	float x_;
-	float y_;
+	double x_;
+	double y_;
 
-	Coordinates(float x, float y) :
+	Coordinates(double x, double y) :
 		x_(x), y_(y) {
 	}
 
@@ -15,5 +15,5 @@ struct Coordinates {
 	bool operator!=(const Coordinates& other);
 };
 
-// РџСЂРµРґРїРѕР»Р°РіР°СЋ С‡С‚Рѕ Р·РµРјР»СЏ РїР»РѕСЃРєР°СЏ, С‚.Рє. СѓСЃР»РѕРІРёРµ РїРѕС…РѕР¶Рµ РЅР° С‚Рѕ С‡С‚Рѕ РІ Р·Р°РґР°С‡Рµ РєРѕРѕСЂРґРёРЅР°С‚РЅР°СЏ РїР»РѕСЃРєРѕСЃС‚СЊ 
+// Предполагаю что земля плоская, т.к. условие похоже на то что в задаче координатная плоскость 
 double ComputeDistance(Coordinates coord);
