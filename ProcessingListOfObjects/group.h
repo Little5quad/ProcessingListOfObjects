@@ -4,13 +4,16 @@
 #include <unordered_map>
 #include <deque>
 #include <memory>
+#include <iostream>
 
 #include "object.h"
 
 class ManagerGroup {
 public:
 
-	void AddToList(const Object& obj);
+	void AddToList(std::string name, Coordinates coord, std::string type, double time);
+
+	const std::deque<Object>& GetAllObjects();
 
 private:
 	std::deque<Object> all_objects_;
