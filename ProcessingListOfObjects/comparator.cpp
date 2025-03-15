@@ -1,6 +1,6 @@
-#include "comparator.h"
+﻿#include "comparator.h"
 
-bool Comparator::operator()(const Object& lhs, const Object& rhs) {
+bool Comparator::operator()(Object lhs, Object rhs) {
 	switch (criteria_) {
 	case SortingCriteria::Name:
 		return lhs.GetName() < rhs.GetName();
@@ -15,7 +15,7 @@ bool Comparator::operator()(const Object& lhs, const Object& rhs) {
 	}
 }
 
-bool Comparator::operator()(std::shared_ptr<Object> lhs, std::shared_ptr<Object> rhs) {
+bool Comparator::operator()(std::shared_ptr<Object> lhs, std::shared_ptr<Object> rhs) const volatile {
 	switch (criteria_) {
 	case SortingCriteria::Name:
 		return lhs->GetName() < rhs->GetName();

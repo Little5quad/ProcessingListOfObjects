@@ -13,8 +13,6 @@ int main()
 	//Устраняет проблему с ру буквами в VS
 	//std::setlocale(LC_ALL, "ru_RU.UTF-8");
 	//setlocale(LC_ALL, "Russian");
-	//SetConsoleOutputCP(1251);
-	//SetConsoleCP(1251);
 
 	std::string name_file;
 	std::cout << "Input file: "sv;
@@ -25,6 +23,11 @@ int main()
 	Load(name_file, mg);
 
 	std::cout << name_file;
+
+	mg.CreateGroup(SortingCriteria::Distance);
+	mg.CreateGroup(SortingCriteria::Name);
+	mg.CreateGroup(SortingCriteria::Type);
+	mg.CreateGroup(SortingCriteria::Date);
 
 	std::cout << "Input file to output: "sv;
 	std::getline(std::cin, name_file);

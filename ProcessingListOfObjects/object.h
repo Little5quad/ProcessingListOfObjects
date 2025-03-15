@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 
 #include <string>
 #include <ctime>
@@ -21,5 +21,5 @@ private:
 	std::string name_;
 	Coordinates coordinates_;
 	std::string type_;
-	double time_; //исходя из условия задания используется дата в формате Unix Time 
+	double time_; //РёСЃС…РѕРґСЏ РёР· СѓСЃР»РѕРІРёСЏ Р·Р°РґР°РЅРёСЏ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РґР°С‚Р° РІ С„РѕСЂРјР°С‚Рµ Unix Time 
 };

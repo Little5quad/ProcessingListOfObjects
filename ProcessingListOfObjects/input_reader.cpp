@@ -1,4 +1,4 @@
-#include "input_reader.h"
+ï»¿#include "input_reader.h"
 
 using std::filesystem::path;
 using namespace std::literals;
@@ -57,7 +57,11 @@ void Load(const std::string& input, ManagerGroup& mg) {
         
         std::cout << "yes\n";
     }
+    else {
+        throw std::logic_error("No such file");
+    }
 }
+
 
 void PrintToFile(const std::string& input, ManagerGroup& mg) {
     std::ofstream output_file(input, std::ios::binary | std::ios::app);
@@ -66,6 +70,14 @@ void PrintToFile(const std::string& input, ManagerGroup& mg) {
         for (const auto& obj : all_objects) {
             output_file << obj;
         }
-        output_file << "ÀÁÂÃÄåæçè"s;
+        output_file << "ĞĞ‘Ğ’Ğ“Ğ”ĞµĞ¶Ğ·Ğ¸"s;
     }
 }
+
+void SaveToFile(const std::string& input, ManagerGroup& mg, SortingCriteria crit){
+    std::ofstream output_file(input, std::ios::binary | std::ios::app);
+    if (output_file) {
+
+    }
+}
+

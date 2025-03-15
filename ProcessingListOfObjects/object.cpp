@@ -1,4 +1,4 @@
-#include "object.h"
+﻿#include "object.h"
 
 std::string Object::GetName() const {
 	return name_;

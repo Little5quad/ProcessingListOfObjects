@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <fstream>
 #include <filesystem>
@@ -10,6 +10,7 @@
 #include "object.h"
 #include "group.h"
 #include "geo.h"
+#include "comparator.h"
 
 class ParsingError : public std::runtime_error {
 public:
@@ -25,3 +26,5 @@ std::vector<std::string> SplitToWords(const std::string& text);
 void Load(const std::string& input, ManagerGroup& mg);
 
 void PrintToFile(const std::string& input, ManagerGroup& mg);
+
+void SaveToFile(const std::string& input, ManagerGroup& mg, SortingCriteria crit);
