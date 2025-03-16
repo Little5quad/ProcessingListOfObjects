@@ -29,6 +29,7 @@ const Group& ManagerGroup::GetGroup(std::string_view name) const{
 			return group;
 		}
 	}
+	return Group("");
 }
 
 void Group::AddSubgrop(const std::string& name_subgr, Comparator comp) {

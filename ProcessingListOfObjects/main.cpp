@@ -18,7 +18,7 @@ int main()
 
 	std::cout << name_file;
 
-	mg.CreateGroup(SortingCriteria::Distance);
+	//mg.CreateGroup(SortingCriteria::Distance);
 	mg.CreateGroup(SortingCriteria::Name);
 	mg.CreateGroup(SortingCriteria::Type);
 	mg.CreateGroup(SortingCriteria::Date);
@@ -26,10 +26,10 @@ int main()
 	std::cout << "Input file to output: "sv;
 	std::getline(std::cin, name_file);
 
-	SaveToFile(name_file, mg, "По расстоянию");
-	SaveToFile(name_file, mg, "По имени");
-	SaveToFile(name_file, mg, "По типу");
-	SaveToFile(name_file, mg, "По дате");
+	SaveToFile(name_file, mg, "По расстоянию", SortingCriteria::Distance);
+	SaveToFile(name_file, mg, "По имени", SortingCriteria::Name);
+	SaveToFile(name_file, mg, "По типу", SortingCriteria::Type);
+	SaveToFile(name_file, mg, "По дате", SortingCriteria::Date);
 
 	//PrintToFile(name_file, mg);
 

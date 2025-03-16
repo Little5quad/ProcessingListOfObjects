@@ -82,15 +82,21 @@ void PrintToFile(const std::string& file_name, ManagerGroup& mg) {
     }
 }
 
-void SaveToFile(const std::string& file_name, ManagerGroup& mg, const std::string& crit){
+void SaveToFile(const std::string& file_name, ManagerGroup& mg, const std::string& name_group, SortingCriteria crit){
     std::ofstream output_file(file_name, std::ios::binary | std::ios::app);
     if (output_file) {
-        output_file << "Сортировка: "s << crit << "\n";
-        for (const auto& [name, subgroup] : mg.GetGroup(crit).GetSubgroups()) {
-            output_file << "Подгруппа: " << name << "\n";
-            output_file << subgroup;
+        if (const auto& tmp_gr = mg.GetGroup(name_group); tmp_gr.GetNameGroup() != "" && tmp_gr.GetSubgroups().size() != 0) {
+            output_file << "Сортировка: "s << name_group << "\n";
+            for (const auto& [name, subgroup] : tmp_gr.GetSubgroups()) {
+                output_file << "Подгруппа: " << name << "\n";
+                output_file << subgroup;
+            }
+            output_file << "\n";
         }
-        output_file << "\n";
+        else {
+            mg.CreateGroup(crit);
+            SaveToFile(file_name, mg, name_group, crit);
+        }
     }
     else {
         throw std::logic_error("No such file"s);

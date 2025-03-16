@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <string>
 #include <unordered_map>
@@ -65,7 +65,7 @@ public:
 
 	void AddSubgrop(const std::string& name_subgr, Comparator comp);
 
-	// Проверит наличие подгруппы и вызвать AddSubgrop
+	// Проверить наличие подгруппы и вызвать AddSubgrop
 	void CheckOfSubgroup(const std::string& name, Comparator comp);
 
 	void EraseSubgroups();
@@ -76,7 +76,7 @@ public:
 	SubGroup* GetSubgroup(const std::string& name);
 private:
 	std::string name_; // название типа группировки 
-	std::map<std::string, SubGroup> subgroups_; // имя подгруппы и порядк подгруппы 
+	std::map<std::string, SubGroup> subgroups_; // имя подгруппы и порядок подгруппы 
 };
 
 class ManagerGroup {
