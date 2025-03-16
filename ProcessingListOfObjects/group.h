@@ -26,6 +26,7 @@ public:
 	void AddSubgroup(std::multiset<std::shared_ptr<Object>, Comparator> subgroup);
 
 	std::multiset<std::shared_ptr<Object>, Comparator>& GetGroup();
+	const std::multiset<std::shared_ptr<Object>, Comparator>& GetConstGroup() const;
 
 private:
 	std::multiset<std::shared_ptr<Object>, Comparator> subgroup_;
@@ -46,8 +47,8 @@ public:
 	void EraseSubgroups();
 	void EraseSubgroupConsistsOneElement();
 
-	std::string_view GetNameGroup();
-	const std::map<std::string, SubGroup>& GetSubgroups();
+	std::string_view GetNameGroup() const;
+	const std::map<std::string, SubGroup>& GetSubgroups() const;
 	SubGroup* GetSubgroup(const std::string& name);
 private:
 	std::string name_; // название типа группировки 

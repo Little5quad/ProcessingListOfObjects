@@ -15,13 +15,20 @@ std::multiset<std::shared_ptr<Object>, Comparator>& SubGroup::GetGroup() {
 	return subgroup_;
 }
 
+const std::multiset<std::shared_ptr<Object>, Comparator>& SubGroup::GetConstGroup() const{
+	return subgroup_;
+}
+
 const std::deque<Object>& ManagerGroup::GetAllObjects() {
 	return all_objects_;
 }
 
-const Group& ManagerGroup::GetGroup(std::string_view name) const
-{
-	// TODO: вставьте здесь оператор return
+const Group& ManagerGroup::GetGroup(std::string_view name) const{
+	for (const Group& group : all_groups_) {
+		if (group.GetNameGroup() == name) {
+			return group;
+		}
+	}
 }
 
 void Group::AddSubgrop(const std::string& name_subgr, Comparator comp) {
@@ -39,29 +46,25 @@ void Group::EraseSubgroups() {
 }
 
 void Group::EraseSubgroupConsistsOneElement(){
-	//std::unordered_map<std::string, SubGroup> subgroups = subgroups_;
 	std::vector<std::string> name_to_erase;
 	for (auto& [name, subgr] : subgroups_) {
 		auto& tmp = subgr.GetGroup();
-		if (tmp.size() == 1 && name != "other") {
-			CheckOfSubgroup("other", Comparator(SortingCriteria::Name));
-			//GetSubgroup("other")->AddObject(std::make_shared<Object>(tmp.begin()));
-			GetSubgroup("other")->AddSubgroup(tmp);
+		if (tmp.size() == 1 && name != "Разное") {
+			CheckOfSubgroup("Разное", Comparator(SortingCriteria::Name));
+			GetSubgroup("Разное")->AddSubgroup(tmp);
 			name_to_erase.push_back(name);
-			//subgroups_.erase(name);
 		}
 	}
 	for (const auto& name : name_to_erase) {
 		subgroups_.erase(name);
 	}
-	//std::swap(subgroups, subgroups_);
 }
 
-std::string_view Group::GetNameGroup() {
+std::string_view Group::GetNameGroup() const {
 	return name_;
 }
 
-const std::map<std::string, SubGroup>& Group::GetSubgroups() {
+const std::map<std::string, SubGroup>& Group::GetSubgroups() const {
 	return subgroups_;
 }
 
@@ -74,7 +77,6 @@ SubGroup* Group::GetSubgroup(const std::string& name) {
 }
 
 void ManagerGroup::AddToList(std::string name, Coordinates coord, std::string type, double time) {
-	//Object obj(name, coord, type, time);
 	all_objects_.emplace_back(name, coord, type, time);
 }
 
@@ -101,7 +103,7 @@ void ManagerGroup::CreateGroup(const SortingCriteria& criteria) {
 
 void ManagerGroup::CreateGroupByDistance() {
 	if (!all_objects_.empty()) {
-		Group group("Distance");
+		Group group("По расстоянию");
 		for (const auto& obj : all_objects_) {
 			if (ComputeDistance(obj.GetCoordinates()) < DISTANCE_HUNDERED) {
 				AddToSubgroup(group, "До 100 ед", Comparator(SortingCriteria::Distance), std::make_shared<Object>(obj));
@@ -122,7 +124,7 @@ void ManagerGroup::CreateGroupByDistance() {
 
 void ManagerGroup::CreateGroupByName() {
 	if (!all_objects_.empty()) {
-		Group group("Name");
+		Group group("По имени");
 		for (const auto& obj : all_objects_) {
 			if (char c = std::toupper(obj.GetName()[0]);  ALPHOBET.find(c) != std::string::npos) {
 				AddToSubgroup(group, std::string(1, c), Comparator(SortingCriteria::Name), std::make_shared<Object>(obj));
@@ -137,7 +139,7 @@ void ManagerGroup::CreateGroupByName() {
 
 void ManagerGroup::CreateGroupByType(){
 	if (!all_objects_.empty()) {
-		Group group("Type");
+		Group group("По типу");
 		for (const auto& obj : all_objects_) {
 			AddToSubgroup(group, obj.GetType(), Comparator(SortingCriteria::Name), std::make_shared<Object>(obj));
 		}
@@ -149,7 +151,7 @@ void ManagerGroup::CreateGroupByType(){
 void ManagerGroup::CreateGroupByDate(){
 	if (!all_objects_.empty()) {
 		NowDate date;
-		Group group("Time");
+		Group group("По дате");
 		for (const auto& obj : all_objects_) {
 			std::time_t tmp = static_cast<std::time_t>(obj.GetTime());
 			std::tm* time_obj = std::localtime(&tmp);

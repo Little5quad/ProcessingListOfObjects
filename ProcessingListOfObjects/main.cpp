@@ -32,7 +32,12 @@ int main()
 	std::cout << "Input file to output: "sv;
 	std::getline(std::cin, name_file);
 
-	PrintToFile(name_file, mg);
+	SaveToFile(name_file, mg, "По расстоянию");
+	SaveToFile(name_file, mg, "По имени");
+	SaveToFile(name_file, mg, "По типу");
+	SaveToFile(name_file, mg, "По дате");
+
+	//PrintToFile(name_file, mg);
 
 	return 0;
 }

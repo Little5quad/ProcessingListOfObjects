@@ -1,5 +1,7 @@
 ﻿#include "input_reader.h"
 
+#include <iomanip>
+
 using std::filesystem::path;
 using namespace std::literals;
 
@@ -12,7 +14,14 @@ std::ostream& operator<<(std::ostream& out, const Coordinates& coord) {
 }
 
 std::ostream& operator<<(std::ostream& out, const Object& obj) {
-    return out << obj.GetName() << " " << obj.GetCoordinates() << " " << obj.GetType() << " " << obj.GetTime() << "\n";
+    return out << obj.GetName() << " " << obj.GetCoordinates() << " " << obj.GetType() << " " << std::setprecision(15) << obj.GetTime() << "\n";
+}
+
+std::ostream& operator<<(std::ostream& out, const SubGroup& subgroup) {
+    for (const auto& obj: subgroup.GetConstGroup()) {
+        out << *obj;
+    }
+    return out;
 }
 
 std::vector<std::string> SplitToWords(const std::string& text) {
@@ -42,23 +51,20 @@ void Load(const std::string& input, ManagerGroup& mg) {
         std::string c;
 
         while (std::getline(input_file, c)) {
-            std::cout << c << std::endl;
             std::vector<std::string> tmp = SplitToWords(c);
             if (tmp.size() != 5) {
-                throw std::logic_error("Error in file");
+                throw std::logic_error("Error in file"s);
             }
             try {
                 mg.AddToList(tmp[0], { std::stod(tmp[1]), std::stod(tmp[2]) }, tmp[3], std::stod(tmp[4]));
             }
             catch (...) {
-                throw ParsingError("Failed to convert ");
+                throw ParsingError("Failed to convert "s);
             }
         }
-        
-        std::cout << "yes\n";
     }
     else {
-        throw std::logic_error("No such file");
+        throw std::logic_error("No such file"s);
     }
 }
 
@@ -70,14 +76,21 @@ void PrintToFile(const std::string& input, ManagerGroup& mg) {
         for (const auto& obj : all_objects) {
             output_file << obj;
         }
-        output_file << "АБВГДежзи"s;
     }
 }
 
-void SaveToFile(const std::string& input, ManagerGroup& mg, SortingCriteria crit){
+void SaveToFile(const std::string& input, ManagerGroup& mg, const std::string& crit){
     std::ofstream output_file(input, std::ios::binary | std::ios::app);
     if (output_file) {
-
+        output_file << "Сортировка по "s << crit << "\n";
+        for (const auto& [name, subgroup] : mg.GetGroup(crit).GetSubgroups()) {
+            output_file << "Подгруппа: " << name << "\n";
+            output_file << subgroup;
+        }
+        output_file << "\n";
+    }
+    else {
+        throw std::logic_error("No such file"s);
     }
 }
 

@@ -27,4 +27,4 @@ void Load(const std::string& input, ManagerGroup& mg);
 
 void PrintToFile(const std::string& input, ManagerGroup& mg);
 
-void SaveToFile(const std::string& input, ManagerGroup& mg, SortingCriteria crit);
+void SaveToFile(const std::string& input, ManagerGroup& mg, const std::string& crit);
