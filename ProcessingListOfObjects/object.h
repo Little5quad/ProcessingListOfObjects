@@ -9,7 +9,7 @@ class Object {
 public:
 
 	Object(std::string name, Coordinates coord, std::string type, double time) :
-		name_(std::move(name)), coordinates_(coord), type_(std::move(type)), time_(time) {
+		name_(name), coordinates_(coord), type_(type), time_(time) {
 	}
 
 	std::string GetName() const;

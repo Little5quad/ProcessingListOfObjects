@@ -1,6 +1,6 @@
 ﻿#include "comparator.h"
 
-bool Comparator::operator()(Object lhs, Object rhs) {
+bool Comparator::operator()(const Object& lhs, const Object& rhs) {
 	switch (criteria_) {
 	case SortingCriteria::Name:
 		return lhs.GetName() < rhs.GetName();

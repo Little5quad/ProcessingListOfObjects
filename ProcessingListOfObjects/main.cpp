@@ -8,12 +8,6 @@ using namespace std::literals;
 
 int main()
 {
-	std::cout << "Hello CMake." << std::endl;
-
-	//Устраняет проблему с ру буквами в VS
-	//std::setlocale(LC_ALL, "ru_RU.UTF-8");
-	//setlocale(LC_ALL, "Russian");
-
 	std::string name_file;
 	std::cout << "Input file: "sv;
 	std::getline(std::cin, name_file);

@@ -18,7 +18,7 @@ public:
 	Comparator(const SortingCriteria& criteria) :
 		criteria_(criteria) {
 	}
-	bool operator()(Object lhs, Object rhs);
+	bool operator()(const Object& lhs, const Object& rhs);
 
 	bool operator()(std::shared_ptr<Object> lhs, std::shared_ptr<Object> rhs) const volatile;
 

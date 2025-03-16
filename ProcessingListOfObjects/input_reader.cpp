@@ -44,8 +44,8 @@ std::vector<std::string> SplitToWords(const std::string& text) {
     return words;
 }
 
-void Load(const std::string& input, ManagerGroup& mg) {
-    std::ifstream input_file(input, std::ios::binary);
+void Load(const std::string& file_name, ManagerGroup& mg) {
+    std::ifstream input_file(file_name, std::ios::binary);
     if (input_file) {
         
         std::string c;
@@ -53,7 +53,7 @@ void Load(const std::string& input, ManagerGroup& mg) {
         while (std::getline(input_file, c)) {
             std::vector<std::string> tmp = SplitToWords(c);
             if (tmp.size() != 5) {
-                throw std::logic_error("Error in file"s);
+                throw ParsingError("Error in file"s);
             }
             try {
                 mg.AddToList(tmp[0], { std::stod(tmp[1]), std::stod(tmp[2]) }, tmp[3], std::stod(tmp[4]));
@@ -69,18 +69,21 @@ void Load(const std::string& input, ManagerGroup& mg) {
 }
 
 
-void PrintToFile(const std::string& input, ManagerGroup& mg) {
-    std::ofstream output_file(input, std::ios::binary | std::ios::app);
+void PrintToFile(const std::string& file_name, ManagerGroup& mg) {
+    std::ofstream output_file(file_name, std::ios::binary | std::ios::app);
     if (output_file) {
         const auto& all_objects = mg.GetAllObjects();
         for (const auto& obj : all_objects) {
             output_file << obj;
         }
     }
+    else {
+        throw std::logic_error("No such file"s);
+    }
 }
 
-void SaveToFile(const std::string& input, ManagerGroup& mg, const std::string& crit){
-    std::ofstream output_file(input, std::ios::binary | std::ios::app);
+void SaveToFile(const std::string& file_name, ManagerGroup& mg, const std::string& crit){
+    std::ofstream output_file(file_name, std::ios::binary | std::ios::app);
     if (output_file) {
         output_file << "Сортировка по "s << crit << "\n";
         for (const auto& [name, subgroup] : mg.GetGroup(crit).GetSubgroups()) {
