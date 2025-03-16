@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <string>
 #include <exception>
 
@@ -17,6 +17,7 @@ void Menu(ManagerGroup& mg) {
 		<< "Save group by type(4)\n"sv
 		<< "Save Group by Date(5)\n"sv
 		<< "Save all objects to another file(6)\n"sv 
+		<< "Enter to escape(7)\n"sv
 		<< "---------------------------------------\n"sv;
 	std::cin >> option;
 	std::cin.get();
@@ -57,6 +58,8 @@ void Menu(ManagerGroup& mg) {
 		PrintToFile(name_file, mg);
 		break;
 	}
+	case 7:
+		return;
 	}
 	Menu(mg);
 }
