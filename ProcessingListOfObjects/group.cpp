@@ -118,7 +118,7 @@ void ManagerGroup::CreateGroupByDistance() {
 				AddToSubgroup(group, "Слишком далеко", Comparator(SortingCriteria::Distance), std::make_shared<Object>(obj));
 			}
 		}
-		all_groups_.push_back(group);
+		all_groups_.push_back(std::move(group));
 	}
 }
 
@@ -133,7 +133,7 @@ void ManagerGroup::CreateGroupByName() {
 				AddToSubgroup(group, "#", Comparator(SortingCriteria::Name), std::make_shared<Object>(obj));
 			}
 		}
-		all_groups_.push_back(group);
+		all_groups_.push_back(std::move(group));
 	}
 }
 
@@ -144,7 +144,7 @@ void ManagerGroup::CreateGroupByType(){
 			AddToSubgroup(group, obj.GetType(), Comparator(SortingCriteria::Name), std::make_shared<Object>(obj));
 		}
 		group.EraseSubgroupConsistsOneElement();
-		all_groups_.push_back(group);
+		all_groups_.push_back(std::move(group));
 	}
 }
 
@@ -171,7 +171,7 @@ void ManagerGroup::CreateGroupByDate(){
 				AddToSubgroup(group, "Сегодня", Comparator(SortingCriteria::Date), std::make_shared<Object>(obj));
 			}
 		}
-		all_groups_.push_back(group);
+		all_groups_.push_back(std::move(group));
 	}
 }
 

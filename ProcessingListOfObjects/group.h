@@ -22,6 +22,18 @@ public:
 		subgroup_(comp), comparator_(comp) {
 	}
 
+	SubGroup(SubGroup&& other) noexcept {
+		subgroup_ = std::move(other.subgroup_);
+		comparator_ = std::move(other.comparator_);
+	}
+
+	SubGroup& operator=(SubGroup&& rhs) noexcept {
+		subgroup_ = std::move(rhs.subgroup_);
+		comparator_ = std::move(rhs.comparator_);
+
+		return *this;
+	}
+
 	void AddObject(std::shared_ptr<Object> obj);
 	void AddSubgroup(std::multiset<std::shared_ptr<Object>, Comparator> subgroup);
 
@@ -37,6 +49,18 @@ class Group {
 public:
 	Group(const std::string& name) :
 		name_(name) {
+	}
+
+	Group(Group&& other) noexcept {
+		name_ = std::move(other.name_);
+		subgroups_ = std::move(other.subgroups_);
+	}
+
+	Group& operator=(Group&& rhs) noexcept {
+		name_ = std::move(rhs.name_);
+		subgroups_ = std::move(rhs.subgroups_);
+
+		return *this;
 	}
 
 	void AddSubgrop(const std::string& name_subgr, Comparator comp);
