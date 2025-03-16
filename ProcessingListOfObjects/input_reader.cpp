@@ -85,7 +85,7 @@ void PrintToFile(const std::string& file_name, ManagerGroup& mg) {
 void SaveToFile(const std::string& file_name, ManagerGroup& mg, const std::string& crit){
     std::ofstream output_file(file_name, std::ios::binary | std::ios::app);
     if (output_file) {
-        output_file << "Сортировка по "s << crit << "\n";
+        output_file << "Сортировка: "s << crit << "\n";
         for (const auto& [name, subgroup] : mg.GetGroup(crit).GetSubgroups()) {
             output_file << "Подгруппа: " << name << "\n";
             output_file << subgroup;
