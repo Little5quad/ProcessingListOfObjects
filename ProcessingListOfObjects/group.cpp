@@ -102,6 +102,11 @@ void ManagerGroup::CreateGroup(const SortingCriteria& criteria) {
 	}
 }
 
+void ManagerGroup::Clear(){
+	all_objects_.clear();
+	all_groups_.clear();
+}
+
 void ManagerGroup::CreateGroupByDistance() {
 	if (!all_objects_.empty()) {
 		Group group("По расстоянию");

@@ -89,6 +89,8 @@ public:
 
 	void CreateGroup(const SortingCriteria& criteria);
 
+	void Clear();
+
 private:
 	std::deque<Object> all_objects_;
 	std::vector<Group> all_groups_;
