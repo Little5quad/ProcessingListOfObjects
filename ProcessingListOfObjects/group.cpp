@@ -133,7 +133,7 @@ void ManagerGroup::CreateGroupByName() {
 		Group group("По имени");
 		for (const auto& obj : all_objects_) {
 			if (char c = std::toupper(obj.GetName()[0]);  ALPHOBET.find(c) != std::string::npos) {
-				AddToSubgroup(group, std::string(1, c), Comparator(SortingCriteria::Name), std::make_shared<Object>(obj));
+				AddToSubgroup(group, obj.GetName().substr(0, 1), Comparator(SortingCriteria::Name), std::make_shared<Object>(obj));
 			}
 			else {
 				AddToSubgroup(group, "#", Comparator(SortingCriteria::Name), std::make_shared<Object>(obj));
