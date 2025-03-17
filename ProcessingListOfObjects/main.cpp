@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <string>
 #include <exception>
 
@@ -14,7 +14,7 @@ void Menu(ManagerGroup& mg) {
 	std::cout << "Specify a new file(1)\n"sv
 		<< "Save group by distance(2)\n"sv
 		<< "Save Group by Name(3)\n"sv
-		<< "Save group by type(4)\n"sv
+		<< "Save group by Type(4)\n"sv
 		<< "Save Group by Date(5)\n"sv
 		<< "Save all objects to another file(6)\n"sv 
 		<< "Enter to escape(7)\n"sv
@@ -72,7 +72,7 @@ int main()
 		Menu(mg);
 	}
 	catch (std::exception& ex) {
-		std::cerr << ex.what() << std::endl;
+		std::cout << ex.what() << std::endl;
 		Menu(mg);
 	}
 
