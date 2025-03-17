@@ -66,6 +66,8 @@ void Menu(ManagerGroup& mg) {
 
 int main()
 {
+	std::setlocale(LC_COLLATE, "ru_RU.UTF-8");
+	
 	ManagerGroup mg;
 
 	try {

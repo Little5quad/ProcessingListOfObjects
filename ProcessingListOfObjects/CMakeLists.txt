@@ -10,6 +10,15 @@ endif()
 project ("ProcessingListOfObjects" CXX)
 set(CMAKE_CXX_STANDARD 17)
 
+if (UNIX)
+    execute_process(COMMAND locale -a OUTPUT_VARIABLE LOCALES)
+    if (LOCALES MATCHES "ru_RU.UTF-8")
+        set(ENV{LC_COLLATE} "ru_RU.UTF-8")
+    else()
+        message(WARNING "Russian UTF-8 locale not found! Sorting may be incorrect.")
+    endif()
+endif()
+
 # Добавьте источник в исполняемый файл этого проекта.
 add_executable (ProcessingListOfObjects "main.cpp" "input_reader.h" "geo.h" "input_reader.cpp" "geo.cpp" "object.h" "group.h" "object.cpp" "group.cpp" "comparator.h" "comparator.cpp")
 
