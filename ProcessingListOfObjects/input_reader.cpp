@@ -45,9 +45,8 @@ std::vector<std::string> SplitToWords(const std::string& text) {
 }
 
 void Load(const std::string& file_name, ManagerGroup& mg) {
-    std::ifstream input_file(file_name, std::ios::binary);
+    std::ifstream input_file(file_name/*, std::ios::binary*/);
     if (input_file) {
-        
         std::string c;
 
         while (std::getline(input_file, c)) {
@@ -70,7 +69,7 @@ void Load(const std::string& file_name, ManagerGroup& mg) {
 
 
 void PrintToFile(const std::string& file_name, ManagerGroup& mg) {
-    std::ofstream output_file(file_name, std::ios::binary | std::ios::app);
+    std::ofstream output_file(file_name, /*std::ios::binary |*/ std::ios::app);
     if (output_file) {
         const auto& all_objects = mg.GetAllObjects();
         for (const auto& obj : all_objects) {
@@ -83,7 +82,7 @@ void PrintToFile(const std::string& file_name, ManagerGroup& mg) {
 }
 
 void SaveToFile(const std::string& file_name, ManagerGroup& mg, const std::string& name_group, SortingCriteria crit){
-    std::ofstream output_file(file_name, std::ios::binary | std::ios::app);
+    std::ofstream output_file(file_name, /*std::ios::binary |*/ std::ios::app);
     if (output_file) {
         if (const auto& tmp_gr = mg.GetGroup(name_group); tmp_gr.GetNameGroup() != "" && tmp_gr.GetSubgroups().size() != 0) {
             output_file << "Сортировка: "s << name_group << "\n";
