@@ -1,10 +1,10 @@
 ﻿#include "geo.h"
 
-bool Coordinates::operator==(const Coordinates& other) {
+inline bool Coordinates::operator==(const Coordinates& other) {
 	return x_ == other.x_ && y_ == other.y_;
 }
 
-bool Coordinates::operator!=(const Coordinates& other) {
+inline bool Coordinates::operator!=(const Coordinates& other) {
 	return !(*this == other);
 }
 
