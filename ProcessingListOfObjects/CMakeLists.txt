@@ -1,91 +1,33 @@
-cmake_minimum_required(VERSION 3.16)
-
-project(processing-list-of-objects VERSION 0.1 LANGUAGES CXX)
+﻿cmake_minimum_required (VERSION 3.11)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
+# Включение горячей перезагрузки для компиляторов MSVC, если поддерживается.
+if (POLICY CMP0141)
+  cmake_policy(SET CMP0141 NEW)
+  set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
+endif()
+
+project ("ProcessingListOfObjects" CXX)
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools)
+#find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core LinguistTools)
+#find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core LinguistTools)
 
-set(TS_FILES processing-list-of-objects_ru_RU.ts)
 
-set(PROJECT_SOURCES
-        main.cpp
-        processingobjects.cpp
-        processingobjects.h
-        processingobjects.ui
-        geo.h
-        geo.cpp
-        object.h
-        group.h
-        object.cpp
-        group.cpp
-        comparator.h
-        comparator.cpp
-        ${TS_FILES}
-)
-
-if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(processing-list-of-objects
-        MANUAL_FINALIZATION
-        ${PROJECT_SOURCES}
-        input_output.h
-        comparator.cpp comparator.h
-        geo.cpp geo.h
-        group.cpp group.h
-        object.cpp object.h
-        input_output.cpp
-    )
-# Define target properties for Android with Qt 6 as:
-#    set_property(TARGET processing-list-of-objects APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
-#                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
-# For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
-
-    qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
-else()
-    if(ANDROID)
-        add_library(processing-list-of-objects SHARED
-            ${PROJECT_SOURCES}
-        )
-# Define properties for Android with Qt 5 after find_package() calls as:
-#    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
+if (UNIX)
+    execute_process(COMMAND locale -a OUTPUT_VARIABLE LOCALES)
+    if (LOCALES MATCHES "ru_RU.UTF-8")
+        set(ENV{LC_COLLATE} "ru_RU.UTF-8")
     else()
-        add_executable(processing-list-of-objects
-            ${PROJECT_SOURCES}
-        )
+        message(WARNING "Russian UTF-8 locale not found! Sorting may be incorrect.")
     endif()
-
-    qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 endif()
 
-target_link_libraries(processing-list-of-objects PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+# Добавьте источник в исполняемый файл этого проекта.
+add_executable (ProcessingListOfObjects "main.cpp" "input_reader.h" "geo.h" "input_reader.cpp" "geo.cpp" "object.h" "group.h" "object.cpp" "group.cpp" "comparator.h" "comparator.cpp")
 
-# Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
-# If you are developing for iOS or macOS you should consider setting an
-# explicit, fixed bundle identifier manually though.
-if(${QT_VERSION} VERSION_LESS 6.1.0)
-  set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.processing-list-of-objects)
-endif()
-set_target_properties(processing-list-of-objects PROPERTIES
-    ${BUNDLE_ID_OPTION}
-    MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
-    MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
-    MACOSX_BUNDLE TRUE
-    WIN32_EXECUTABLE TRUE
-)
 
-include(GNUInstallDirs)
-install(TARGETS processing-list-of-objects
-    BUNDLE DESTINATION .
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-)
-
-if(QT_VERSION_MAJOR EQUAL 6)
-    qt_finalize_executable(processing-list-of-objects)
-endif()
+# TODO: Добавьте тесты и целевые объекты, если это необходимо.

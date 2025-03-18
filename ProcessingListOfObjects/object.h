@@ -12,9 +12,9 @@ public:
 		name_(name), coordinates_(coord), type_(type), time_(time) {
 	}
 
-    const std::string& GetName() const;
-    Coordinates GetCoordinates() const;
-    const std::string& GetType() const;
+	std::string GetName() const;
+	Coordinates GetCoordinates() const;
+	std::string GetType() const;
 	double GetTime() const;
 
 private:

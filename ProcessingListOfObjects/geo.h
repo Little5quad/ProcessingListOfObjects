@@ -10,10 +10,10 @@ struct Coordinates {
 		x_(x), y_(y) {
 	}
 
-    inline bool operator==(const Coordinates& other);
+	bool operator==(const Coordinates& other);
 
-    inline bool operator!=(const Coordinates& other);
+	bool operator!=(const Coordinates& other);
 };
 
-// Предполагаю что земля плоская, т.к. условие похоже на то что в задаче координатная плоскость
+// Предполагаю что земля плоская, т.к. условие похоже на то что в задаче координатная плоскость 
 double ComputeDistance(Coordinates coord);
